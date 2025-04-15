@@ -1,0 +1,110 @@
+/* Estilos gerais */
+.container {
+  width: 100%;
+  max-width: 450px; /* Mantém o tamanho máximo */
+  background-color: #2E2D4E;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+  margin: auto; /* Centraliza horizontalmente */
+}
+
+/* Ajusta a altura mínima da tela para centralizar verticalmente */
+body, html {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a2e;
+}
+
+/* Título */
+.container .title {
+  font-size: 28px;
+  color: #fff;
+}
+
+/* Campos de entrada */
+.input-field {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin: 30px auto;
+}
+
+.input-field input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  text-align: center;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px 45px 10px 25px;
+}
+
+.input-field input::placeholder {
+  color: #ffffff70;
+}
+
+/* Ícones */
+.input-field .icon, 
+.input-field .toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 17px;
+  color: #fff;
+  background-color: inherit;
+  border: none;
+}
+
+.input-field .toggle-password {
+  cursor: pointer;
+}
+
+/* Botão de login */
+.login-button {
+  width: 100%;
+  height: 45px;
+  background-color: #8B8AE1;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.login-button:hover {
+  opacity: 0.8;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .container {
+      width: 90%;
+      padding: 30px;
+  }
+  
+  .input-field input {
+      font-size: 14px;
+      padding: 10px 40px;
+  }
+  
+  .icon, .toggle-password {
+      font-size: 15px;
+  }
+  
+  .login-button {
+      height: 40px;
+      font-size: 14px;
+  }
+}
