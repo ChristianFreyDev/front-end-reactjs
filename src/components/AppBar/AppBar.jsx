@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import {
   AppBar, Toolbar, IconButton, Typography, Drawer,
-  List, ListItem, ListItemIcon, ListItemText, Box,
-  Menu, MenuItem
+  List, ListItem, ListItemIcon, ListItemText, Box
 } from '@mui/material';
+import Popover from '@mui/material/Popover';
 import MenuIcon from '@mui/icons-material/Menu';
-import LogoutIcon from '@mui/icons-material/Logout';
+import PasswordIcon from '@mui/icons-material/KeyRounded';
+import LogoutIcon from '@mui/icons-material/LogoutRounded';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import ModuleIcon from '@mui/icons-material/WidgetsRounded';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
@@ -17,7 +19,8 @@ export default function MyAppBar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
 
-    const usuario = 'Christian Frey';
+    const user = 'Christian Frey';
+    const version = '2025.04.15.1';
 
     const toggleDrawer = (open) => () => {
         setDrawerOpen(open);
@@ -34,6 +37,11 @@ export default function MyAppBar() {
     const handleModules = () => {
         handleMenuClose();
         navigate("/Modulo");
+    };
+
+    const handlePassword = () => {
+        handleMenuClose();
+        //Aqui vai chamar a tela/modal para redefinir a senha //navigate("/Login");
     };
 
     const handleLogout = () => {
@@ -78,24 +86,38 @@ export default function MyAppBar() {
                         transition: 'none'
                     }}
                     >
-                    {/* <AccountCircle /> */}
-                    <Typography
-                        variant="body2"
-                        sx={{
-                            ml: 1,
-                            transition: 'none',
-                            '&:hover': {
-                                color: '#b9b9df'
-                            }
-                        }}
-                    >
-                        {usuario.toUpperCase()}
-                    </Typography>
-                </IconButton>
 
-                <Menu
-                    anchorEl={anchorEl}
+                    {/* <AccountCircle/> */}
+
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', ml: 1 }}>
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                lineHeight: 1,
+                                transition: 'none',
+                                '&:hover': {
+                                    color: '#b9b9df'
+                                }
+                            }}
+                        >
+                            {user.toUpperCase()}
+                        </Typography>
+                        <Typography
+                            variant="caption"
+                            sx={{
+                                lineHeight: 1,
+                                color: '#cccccc',
+                                mt: 0.5,
+                            }}
+                        >                            
+                            {version}
+                        </Typography>
+                    </Box>
+                </IconButton>             
+
+                <Popover
                     open={Boolean(anchorEl)}
+                    anchorEl={anchorEl}
                     onClose={handleMenuClose}
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -104,22 +126,83 @@ export default function MyAppBar() {
                     transformOrigin={{
                         vertical: 'top',
                         horizontal: 'center',
-                    }}                    
+                    }}
+                    PaperProps={{
+                        sx: {
+                            p: 0.1,
+                            borderRadius: '10px',
+                            boxShadow: 1,
+                            backgroundColor: '#fff', 
+                            minWidth: 180,
+                            overflow: 'hidden'
+                        },
+                    }}
                 >
-                    <MenuItem onClick={handleLogout}>
-                        <LogoutIcon fontSize="small" sx={{ mr: 1 }} />
-                        Logout
-                    </MenuItem>
-                </Menu>
+                    <Box>
+                        <Box
+                            onClick={handlePassword}
+                            sx={{         
+                                display: 'flex',
+                                alignItems: 'center',
+                                p: 1,
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                '&:hover': {
+                                    backgroundColor: '#b9b9df',
+                                    color: '#202039',
+                                },
+                            }}
+                        >
+                            <PasswordIcon fontSize="small" sx={{ mr: 1 }} />
+                                Redefinir senha
+                        </Box>
+                        <Box
+                            onClick={handleLogout}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                p: 1,
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                '&:hover': {
+                                    backgroundColor: '#b9b9df',
+                                    color: '#202039',
+                                },
+                            }}
+                        >
+                            <LogoutIcon fontSize="small" sx={{ mr: 1 }} />
+                                Logout
+                        </Box>
+                    </Box>
+                </Popover>
             </Toolbar>
         </AppBar>
 
         <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
-            <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+            <Box sx={{ width: 250, p: 0.1 }} role="presentation">
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
+                    <IconButton 
+                        onClick={toggleDrawer(false)}
+                        sx={{
+                            color: '#555566',
+                            '&:hover': {
+                                color: '#b9b9df'
+                            }
+                        }}
+                    >
+                        <CloseIcon  />
+                    </IconButton>
+                </Box>
                 <List>
-                    <ListItem button>
+                    <ListItem button 
+                        sx={{
+                            '&:hover': {
+                                backgroundColor: '#b9b9df',
+                                borderRadius: '10px',
+                            }
+                        }}>
                         <ListItemIcon><ModuleIcon /></ListItemIcon>
-                        <ListItemText primary="Módulos" sx={{cursor: "pointer"}} onClick={handleModules} />
+                        <ListItemText primary="Módulos" sx={{ cursor: "pointer" }} onClick={handleModules} />
                     </ListItem>
                 </List>
             </Box>

@@ -66,7 +66,7 @@ const Login = () => {
           )}
         </div>
         
-        <button className="login-button" type="submit" onClick={() => login(username, password)}>Logar</button>
+        <button className="login-button" type="submit" onClick={() => login(username, password)}>ENTRAR</button>
       </form>
     </div>
   );
