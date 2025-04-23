@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../contexts/AuthContext';
 import Alerta from '/src/components/Alert/Alerta.jsx';
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Login.css";
 import api from '../../services/api';
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
   };
 
-  async function login(username, password) {
+  async function handleLogin(username, password) {
     const loginResponse = await api.get(`/Usuario/ValidarLogin/${username}&${password}`);
     
     if (loginResponse.data.dados == null) {
@@ -24,7 +26,8 @@ const Login = () => {
     } else {
        Alerta.Sucesso(loginResponse.data.mensagem)
 
-      navigate("/Modulo");
+      login();
+      navigate("/Dashboard");
     }
   }
 
@@ -66,7 +69,7 @@ const Login = () => {
           )}
         </div>
         
-        <button className="login-button" type="submit" onClick={() => login(username, password)}>ENTRAR</button>
+        <button className="login-button" type="submit" onClick={() => handleLogin(username, password)}>ENTRAR</button>
       </form>
     </div>
   );

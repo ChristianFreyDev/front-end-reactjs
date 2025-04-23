@@ -13,8 +13,8 @@
     font-size: 22px !important;
 } */
 
-
-.cidade-container {
-    width:100%; 
-    padding: 25px;
+.table-container {
+    padding-top: 25px;
+    width: 100%;
+    justify-self: center;
 }

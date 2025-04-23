@@ -11,16 +11,18 @@ import CloseIcon from '@mui/icons-material/CloseRounded';
 import ModuleIcon from '@mui/icons-material/WidgetsRounded';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../contexts/AuthContext';
 import { useAppBar } from "@/contexts/AppBarContext";
 
 export default function MyAppBar() {
+    const { logout } = useAuth();
+    const navigate = useNavigate();
     const { title } = useAppBar();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-    const navigate = useNavigate();
 
     const user = 'Christian Frey';
-    const version = '2025.04.15.1';
+    const version = 'v2025.04.15.1';
 
     const toggleDrawer = (open) => () => {
         setDrawerOpen(open);
@@ -36,7 +38,7 @@ export default function MyAppBar() {
 
     const handleModules = () => {
         handleMenuClose();
-        navigate("/Modulo");
+        navigate("/Dashboard");
     };
 
     const handlePassword = () => {
@@ -46,7 +48,8 @@ export default function MyAppBar() {
 
     const handleLogout = () => {
         handleMenuClose();
-        navigate("/Login");
+        logout();
+        navigate("/Login", { replace: true });
     };
 
     return (

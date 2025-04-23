@@ -12,9 +12,9 @@ body {
 
 .App {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; //Colcoar por tela */
   /* overflow: scroll; */
-  align-items: center;
+  /* align-items: center; //Colcoar por tela */
   min-height: 100vh;
   width: 100vw;
   /* background: url("assets/bg.webp") no-repeat; */

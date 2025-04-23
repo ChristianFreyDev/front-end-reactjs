@@ -1,4 +1,3 @@
-import { red } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
 const primaryColor = '#6d6bb0';
@@ -112,6 +111,47 @@ const theme = createTheme({
           '&:hover:not(.Mui-selected)': {
             backgroundColor: hoverPrimaryColor,
             color: textColorRows
+          },
+        },
+      },
+    },
+    
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#9997c2',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#ffffff',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#ffffff',
+          },
+        },
+        input: {
+          color: '#f0f0f5',
+        },
+      },
+    },
+  
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: '#b0aee0',
+          '&.Mui-focused': {
+            color: '#ffffff',
+          },
+        },
+      },
+    },
+
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          '::placeholder': {
+            color: '#ccccdd',
+            opacity: 1,
           },
         },
       },
