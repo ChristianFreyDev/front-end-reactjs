@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useAppBar } from "@/contexts/AppBarContext";
 import {
-  Dialog, DialogTitle, DialogContent, DialogActions, Button, 
+  Dialog, DialogTitle, DialogContent, DialogActions, Button,
   Typography, Slide, Snackbar, Alert
 } from '@mui/material';
+import SearchIcon from '@mui/icons-material/SearchRounded';
 import api from '../../services/api';
 import './Cidade.css';
+import Alerta from '/src/components/Alert/Alerta.jsx';
 import Table from '@/components/Table/Table';
 import Filter from '@/components/Filter/Filter';
 
@@ -74,27 +76,36 @@ function Cidade() {
     setSnackbar({ ...snackbar, open: false });
   };
 
+  const search = (mensagem) => {
+    Alerta.Sucesso(mensagem)
+  };
+
   return (
     <div className='cidade-container'>
       <Filter
         inputs={[
-          { col: 2, label: 'ID',     value: id,     onChange: (e) => setId(e.target.value) },
-          { col: 5, label: 'Cidade', value: nome,   onChange: (e) => setNome(e.target.value) },
-          { col: 2, label: 'IBGE',   value: ibge,   onChange: (e) => setIBGE(e.target.value) },
+          { col: 2, label: 'ID', value: id, onChange: (e) => setId(e.target.value) },
+          { col: 5, label: 'Cidade', value: nome, onChange: (e) => setNome(e.target.value) },
+          { col: 2, label: 'IBGE', value: ibge, onChange: (e) => setIBGE(e.target.value) },
           { col: 3, label: 'Estado', value: estado, onChange: (e) => setEstado(e.target.value) },
         ]}
       />
 
+      <Button onClick={() => search("Filtra os registros")} startIcon={<SearchIcon />} variant="contained"> BUSCAR </Button>
+
       <Table
         columns={[
-          { title: 'ID',     key: 'id',          value: item => item.id, align: 'right' },
-          { title: 'Cidade', key: 'nome',        value: item => item.nome, align: 'left' },
-          { title: 'IBGE',   key: 'ibge',        value: item => item.ibge, align: 'right' },
+          { title: 'ID', key: 'id', value: item => item.id, align: 'right' },
+          { title: 'Cidade', key: 'nome', value: item => item.nome, align: 'left' },
+          { title: 'IBGE', key: 'ibge', value: item => item.ibge, align: 'right' },
           { title: 'Estado', key: 'estado.nome', value: item => `${item.estado.nome} - ${item.estado.sigla}`, align: 'left' },
         ]}
         data={cidades}
+        defaultOrder={'id'}
+        beforeColumns={() => <div><span>TESTE 1</span></div>}
+        afterColumns={() => <div><span>TESTE 2</span></div>}
       />
-      
+
       <Dialog
         open={openDeleteModal}
         onClose={!isDeleting ? cancelDelete : undefined}
@@ -107,14 +118,14 @@ function Cidade() {
         <DialogTitle >Confirmação de exclusão</DialogTitle>
         <DialogContent>
           <Typography>
-            Tem certeza que deseja excluir a cidade <br/> <strong>{cidadeSelecionada?.nome}</strong>?
+            Tem certeza que deseja excluir a cidade <br /> <strong>{cidadeSelecionada?.nome}</strong>?
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button 
-            onClick={cancelDelete} 
-            color="inherit" 
-            variant='outlined' 
+          <Button
+            onClick={cancelDelete}
+            color="inherit"
+            variant='outlined'
             disabled={isDeleting}
           >
             Cancelar

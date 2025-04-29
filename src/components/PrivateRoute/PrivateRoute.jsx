@@ -6,7 +6,7 @@ export const PrivateRoute = ({ children }) => {
   const { authenticated, loading } = useAuth();
 
   if (loading) {
-    // Pode retornar um loader, splash screen ou até null
+    // Pode retornar um loader ou splash screen
     return <div>Carregando...</div>;
   }
 

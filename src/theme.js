@@ -123,10 +123,10 @@ const theme = createTheme({
             borderColor: '#9997c2',
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#ffffff',
+            borderColor: textColor,
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#ffffff',
+            borderColor: textColor,
           },
         },
         input: {
@@ -140,7 +140,7 @@ const theme = createTheme({
         root: {
           color: '#b0aee0',
           '&.Mui-focused': {
-            color: '#ffffff',
+            color: textColor,
           },
         },
       },

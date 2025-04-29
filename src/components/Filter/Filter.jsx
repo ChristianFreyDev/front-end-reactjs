@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import InputText from '../Input/InputText';
 
 const Filter = ({ inputs }) => (
-  <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
+  <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1.2}>
     {inputs.map((input, index) => (
       <InputText 
         key={index} 

@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table, TableBody, TableCell, TableContainer, TableHead,
   TableRow, Paper, Pagination, Stack, TableSortLabel
 } from '@mui/material';
 import '../Table/Table.css';
 
-// function Tabela({ data, columns, page, totalPages, setPage, sortConfig, handleSort }) {
-function Tabela({ data, columns }) {
+function Tabela({ data, columns, defaultOrder, beforeColumns, afterColumns }) {
   const pageSize = 10;
   const [page, setPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+
+  useEffect(() => {
+    handleSort(defaultOrder)
+  },[])
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -19,7 +22,7 @@ function Tabela({ data, columns }) {
     setSortConfig({ key, direction });
   };
 
-  const sortedData = [...data].sort((a, b) => {
+  const sortedData = data.sort((a, b) => {
     if (!sortConfig.key) return 0;
 
     const getValue = (obj, key) => key.split('.').reduce((o, k) => o?.[k], obj);
@@ -27,7 +30,7 @@ function Tabela({ data, columns }) {
     let aValue = getValue(a, sortConfig.key);
     let bValue = getValue(b, sortConfig.key);
 
-    if (sortConfig.key === 'ibge') {
+    if (!isNaN(Number(aValue))) {
       aValue = Number(aValue);
       bValue = Number(bValue);
     }
@@ -46,6 +49,7 @@ function Tabela({ data, columns }) {
         <Table size="small" stickyHeader>
           <TableHead>
             <TableRow>
+              {'before'}
               {columns.map((item, index) => (
                 <TableCell key={index} align={item.align}>
                   <TableSortLabel
@@ -57,17 +61,20 @@ function Tabela({ data, columns }) {
                   </TableSortLabel>
                 </TableCell>
               ))}
+              { 'after' }
             </TableRow>
           </TableHead>
 
           <TableBody>
             {pagedData.map((item, index) => (
               <TableRow key={index}>
+                { 'before' }
                 {columns.map((column, index) => (
                   <TableCell key={index} align={column.align}>
                     {column.value(item)}
                   </TableCell>
                 ))}
+                { 'after' }
               </TableRow>
             ))}
           </TableBody>
